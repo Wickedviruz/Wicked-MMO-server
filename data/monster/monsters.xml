@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monsters>
+    <monster file="monsters/rat.xml" />
+    <monster file="monsters/goblin.xml" />
+    <monster file="monsters/dragon.xml" />
+</monsters>

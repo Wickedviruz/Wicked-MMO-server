@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Rat" nameDescription="a rat" race="blood" experience="5" speed="134" manacost="200">
+    <health now="10" max="10" />
+    <attacks>
+		<attack name="melee" interval="2000" min="0" max="-8" />
+	</attacks>
+    <defenses armor="1" defense="1" />
+    <loot>
+		<item name="gold coin" countmax="4" chance="100000" />
+		<item id="2696" chance="39410" /><!-- cheese -->
+	</loot>
+    <ai type="passive" speed="1" />
+</monster>

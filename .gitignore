@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Godot 4
+.godot/
+.import/
+
+# Exports / builds
+exports/
+build/
+dist/
+
+# Logs
+*.log
