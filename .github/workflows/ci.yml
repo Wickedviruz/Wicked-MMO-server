@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -12,7 +12,13 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,9 +26,13 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "9.0.x"
+          cache: true
+          cache-dependency-path: |
+            **/*.csproj
+            **/packages.lock.json
 
       - name: Restore
-        run: dotnet restore GameCore.sln
+        run: dotnet restore
 
       - name: Build
-        run: dotnet build GameCore.sln -c Release --no-restore
+        run: dotnet build -c Release --no-restore
