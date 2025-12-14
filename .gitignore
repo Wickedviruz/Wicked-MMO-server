@@ -12,6 +12,8 @@ Thumbs.db
 exports/
 build/
 dist/
+bin/
+obj/
 
 # Logs
 *.log
