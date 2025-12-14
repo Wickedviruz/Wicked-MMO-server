@@ -29,10 +29,11 @@ dotnet run
 ## Project Structure
 
 ### Example:
-- src/ — server code
-- docs/ — protocol + architecture docs
-- Database/ — migrations / schema scripts
-- .github/workflows/ — CI
+- core/ - game core
+- Network/ - packets, protocols and managers
+- docs/ - protocol + architecture docs
+- Database/ - migrations / schema scripts
+- .github/workflows/ - CI
 
 ### Documentation
 
@@ -46,4 +47,4 @@ dotnet run
 - Open a PR into main
 - Ensure CI passes on Windows + Ubuntu
 
-## 4) MIT License (LICENSE)
+## 4 MIT License (LICENSE)
