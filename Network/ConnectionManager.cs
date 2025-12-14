@@ -94,6 +94,14 @@ public class ConnectionManager
         }
     }
 
+    public List<Connection> GetAll()
+    {
+        lock (_lock)
+        {
+            return new List<Connection>(_connections.Values);
+        }
+    }
+
     //close all connections
     public void DisconnectAll()
     {
