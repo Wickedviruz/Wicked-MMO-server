@@ -118,3 +118,13 @@ public enum PacketType : byte
     Ping = 0xFE,
     Pong = 0xFF
 }
+
+// =================================
+// Monster AI TYPES
+// =================================
+public enum AiType
+{
+    Passive,
+    Aggressive,
+    Defensive
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+  <event class="Creature" method="onThink" script="script/test.lua" enabled="1" />
+</events>

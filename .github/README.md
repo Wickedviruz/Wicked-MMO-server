@@ -17,7 +17,7 @@ This project is under active development.
 
 ### Requirements
 - .NET SDK 9
-- (Optional) PostgreSQL if you want persistence
+- PostgreSQL
 
 ### Run
 ```bash

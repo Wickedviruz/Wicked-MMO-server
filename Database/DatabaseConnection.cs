@@ -32,12 +32,12 @@ public class DatabaseConnection
             cmd.CommandText = "SELECT version()";
             var version = cmd.ExecuteScalar()?.ToString();
 
-            Logger.Log(LogLevel.Debug, "DatabaseConn", $"Connected to PostgreSQL: {version?.Split(',')[0]}");
-            Logger.Log(LogLevel.Debug, "DatabaseConn", $"Connection pooling enabled");
+            Logger.Log(LogLevel.Info, "DB", $"Connected to PostgreSQL: {version?.Split(',')[0]}");
+            Logger.Log(LogLevel.Info, "DB", $"Connection pooling enabled");
         }
         catch (Exception ex)
         {
-            Logger.Log(LogLevel.Error, "DatabaseConn", $"Connection failed: {ex.Message}");
+            Logger.Log(LogLevel.Error, "DB", $"Connection failed: {ex.Message}");
             throw;
         }
     }

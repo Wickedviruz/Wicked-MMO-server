@@ -40,8 +40,6 @@ public class ServerConfig
             return config;
         }
 
-        Logger.Log(LogLevel.Debug,"CONFIG",$"Loading config from {filePath}");
-
         foreach (var line in File.ReadAllLines(filePath))
         {
             //Skip empty rows and comments

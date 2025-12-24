@@ -183,6 +183,10 @@ public static NetworkMessage WriteCharacterDeleted(int characterId, bool success
 // CHARACTER SELECTION - WRITE (Client → Server)
 // ============================================
 
+
+
+//  detta skall inte vara här?
+
 public static NetworkMessage WriteSelectCharacter(int characterId)
 {
     var msg = new NetworkMessage();
@@ -312,7 +316,25 @@ public static DeleteCharacterPacket ReadDeleteCharacter(NetworkMessage msg)
         Password = msg.GetString()
     };
 }
+
+    // ============================================
+    // NETWORK
+    // ============================================
     
+    public static long ReadPing(NetworkMessage msg)
+    {
+        msg.GetByte();
+        return msg.GetInt64();
+    }
+
+    public static NetworkMessage WritePong(long timestamp)
+    {
+        var msg = new NetworkMessage();
+        msg.AddByte((byte)PacketType.Pong);
+        msg.AddInt64(timestamp);
+        return msg;
+    }
+
     // ============================================
     // UTILITY
     // ============================================

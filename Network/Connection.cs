@@ -10,6 +10,7 @@ public class Connection
     public TcpClient Client{get;}
     public NetworkStream Stream {get;}
     public DateTime ConnectedAt {get;}
+    public DateTime LastAliveUtc { get; private set; }
     public bool IsConnected => Client.Connected;
 
     // debug stats
@@ -24,6 +25,7 @@ public class Connection
         Client = client;
         Stream = client.GetStream();
         ConnectedAt = DateTime.UtcNow;
+        LastAliveUtc = ConnectedAt;
 
         Logger.Log(LogLevel.Debug,"CONNECTION",$"#{Id} created from {client.Client.RemoteEndPoint}");
     }
@@ -65,6 +67,11 @@ public class Connection
         {
             return false;
         }
+    }
+
+    public void MarkAlive()
+    {
+        LastAliveUtc = DateTime.UtcNow;
     }
 
     //close connection

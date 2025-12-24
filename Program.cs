@@ -2,8 +2,6 @@
 using GameCore.Database;
 using GameCore.Database.Services;
 
-Console.WriteLine("=== Wicked Emulator ===");
-
 // ===== NY: Check for admin commands =====
 if (args.Length > 0)
 {
@@ -23,8 +21,6 @@ if (args.Length > 0)
             return 1;
     }
 }
-
-Console.WriteLine("Starting up...\n");
 
 // get game instance
 var game = Game.Instance;
