@@ -61,6 +61,12 @@ public class NetworkMessage
         _writer.Write(value);
     }
 
+    public void AddInt64(long value)
+    {
+        CheckSize(8);
+        _writer.Write(value);
+    }
+
     public void AddString(string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -99,6 +105,11 @@ public class NetworkMessage
     public int GetInt32()
     {
         return _reader.ReadInt32();
+    }
+
+    public long GetInt64()
+    {
+        return _reader.ReadInt64();
     }
     public string GetString()
     {

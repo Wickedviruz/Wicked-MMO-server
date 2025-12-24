@@ -53,6 +53,30 @@ public class NetworkManager
 
         // start acceptloop
         Task.Run(() => AcceptClientsAsync());
+        Task.Run(() => MonitorConnectionsAsync());
+    }
+
+    private async Task MonitorConnectionsAsync()
+    {
+        while (_isRunning)
+        {
+            foreach (var connection in _connectionManager.GetAll())
+            {
+                if (DateTime.UtcNow - connection.LastAliveUtc > TimeSpan.FromSeconds(15))
+                {
+                    Logger.Log(
+                        LogLevel.Info,
+                        "NETWORK",
+                        $"Connection #{connection.Id} timed out"
+                    );
+
+                    connection.Close();
+                    _connectionManager.Remove(connection.Id);
+                }
+            }
+
+            await Task.Delay(1000); // 1 Hz watchdog
+        }
     }
 
     // Accept new clients (own task)
@@ -120,8 +144,7 @@ public class NetworkManager
                     break;
                 }
 
-                //echo back
-                //await connection.SendAsync(data);
+                connection.MarkAlive();
             }
         }
         catch (Exception ex)
@@ -141,6 +164,9 @@ public class NetworkManager
     {
         switch(type)
         {
+            case PacketType.Ping:
+                await HandlePingPacketAsync(connection, msg);
+                break;
             case PacketType.Login:
                 await HandleLoginPacketAsync(connection, msg);
                 break;
@@ -166,6 +192,16 @@ public class NetworkManager
                 Logger.Log(LogLevel.Debug,"NETWORK",$"Connection #{connection.Id} unknown packet type {type}");
                 break;
         }
+    }
+
+private async Task HandlePingPacketAsync(Connection connection, NetworkMessage msg)
+    {
+         long clientTimestamp = PacketHandler.ReadPing(msg);
+
+         var pong = PacketHandler.WritePong(clientTimestamp);
+         await connection.SendAsync(pong.GetBytes());
+
+         connection.MarkAlive();
     }
 
 private async Task HandleLoginPacketAsync(Connection connection, NetworkMessage msg)
@@ -422,6 +458,8 @@ private async Task HandleChatPacketAsync(Connection connection, NetworkMessage m
         // Broadcast till ALLA (inklusive avsändaren för bekräftelse)
         var broadcast = PacketHandler.WritePlayerMove(connection.Id, packet.TargetX, packet.TargetY);
         await _connectionManager.BroadcastAsync(broadcast.GetBytes());
+
+        connection.MarkAlive();
     }
 
     private async Task SendExistingPlayersAsync(Connection newConnection)
