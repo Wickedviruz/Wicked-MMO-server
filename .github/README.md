@@ -1,6 +1,6 @@
-# Wicked MMO Server
+# Wicked MMO Server [![Build Status](https://github.com/Wickedviruz/Wicked-MMO-server/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Wickedviruz/Wicked-MMO-server/actions/workflows/ci.yml "build status") ![.NET](https://img.shields.io/badge/.NET-9.0-blue)
 
-Server-authoritative MMO server (Tibia-inspired) built with C#/.NET 9.  
+Multiplayer Server built with C#/.NET 9.  
 WebSocket networking via Fleck, PostgreSQL persistence via Npgsql + Dapper, and secure password hashing with BCrypt.
 
 ## Status
@@ -41,10 +41,11 @@ dotnet run
 - docs/architecture.md — server loop, world ownership, components
 
 ## Contributing
+If you find any issues, please use the [issue tracker on github](https://github.com/Wickedviruz/Wicked-MMO-server/issues)
 
 - PRs are welcome. Please:
 - Create a feature branch
 - Open a PR into main
 - Ensure CI passes on Windows + Ubuntu
 
-## 4 MIT License (LICENSE)
+## 4 MIT License ([LICENSE](https://github.com/Wickedviruz/Wicked-MMO-server?tab=MIT-1-ov-file))

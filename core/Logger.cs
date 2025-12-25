@@ -24,7 +24,7 @@ public static class Logger
             return;
 
         var time = DateTime.Now.ToString("HH:mm:ss.fff");
-        var line = $"[{time}] [{level}] [{station}] {message}";
+        var line = $"{time}:[{level}] [{station}]: {message}";
 
         lock (_lock)
         {
