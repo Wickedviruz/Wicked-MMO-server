@@ -45,8 +45,6 @@ Console.CancelKeyPress += (s, e) =>
 };
 
 await game.StartAsync(cts.Token);
-
-Console.WriteLine("\nShutdown complete...");
 return 0;
 
 

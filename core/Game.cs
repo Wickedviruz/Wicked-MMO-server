@@ -38,6 +38,9 @@ public sealed class Game
         printServerVersion();
     }
 
+/// <summary>
+/// Starts the game server and initializes all subsystems.
+/// </summary>
     public bool Initialize()
     {
         State = GameState.Initializing;
@@ -131,7 +134,11 @@ public sealed class Game
             Logger.Log(LogLevel.Debug,"CORE",$"Shutdown requested");
         }
     }
-
+/// <summary>
+/// Prints server version, compiled version, and runtime info
+/// And then the lua version used
+/// and last the developers team
+/// </summary>
     public void printServerVersion()
     {
         var assembly = Assembly.GetEntryAssembly()!;

@@ -15,6 +15,19 @@ public enum GameState
 }
 
 // =================================
+// CONNECTION STATE
+// =================================
+
+public enum ConnectionState
+{
+    CONNECTION_STATE_DISCONNECTED,
+    CONNECTION_STATE_REQUEST_CHARLIST,
+    CONNECTION_STATE_GAMEWORLD_AUTH,
+    CONNECTION_STATE_GAME,
+    CONNECTION_STATE_PENDING
+}
+
+// =================================
 // DIRECTION
 // =================================
 public enum Direction
@@ -70,19 +83,6 @@ public enum TileType
     Lava
 }
 
-
-// =================================
-// CONNECTION STATE
-// =================================
-
-public enum ConnectionState
-{
-    CONNECTION_STATE_DISCONNECTED,
-    CONNECTION_STATE_REQUEST_CHARLIST,
-    CONNECTION_STATE_GAMEWORLD_AUTH,
-    CONNECTION_STATE_GAME,
-    CONNECTION_STATE_PENDING
-}
 
 // =================================
 // NET PACKETS TYPES
