@@ -8,7 +8,7 @@ We also recommend you to read our [Contributor code of conduct](https://github.c
 
 ## AUTHORS & CONTRIBUTORS
 
-This project exists thanks to the [authors]().
+This project exists thanks to the [authors](https://github.com/Wickedviruz/Wicked-MMO-server/blob/main/AUTHORS).
 
 
 All contributors, big or small, are appriciated!

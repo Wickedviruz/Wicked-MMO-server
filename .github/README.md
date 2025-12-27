@@ -4,9 +4,11 @@ Multiplayer Server built with C#/.NET 9.
 WebSocket networking via Fleck, PostgreSQL persistence via Npgsql + Dapper, and secure password hashing with BCrypt.
 
 ## Status
+
 This project is under active development.
 
 ## Tech Stack
+
 - **Language:** C#
 - **Runtime:** .NET 9 (`net9.0`)
 - **Networking:** Fleck (WebSocket)
@@ -16,10 +18,12 @@ This project is under active development.
 ## Getting Started
 
 ### Requirements
+
 - .NET SDK 9
 - PostgreSQL
 
 ### Run
+
 ```bash
 dotnet restore
 dotnet build -c Release
@@ -29,6 +33,7 @@ dotnet run
 ## Project Structure
 
 ### Example:
+
 - core/ - game core
 - Network/ - packets, protocols and managers
 - docs/ - protocol + architecture docs
@@ -41,6 +46,7 @@ dotnet run
 - docs/architecture.md — server loop, world ownership, components
 
 ## Contributing
+
 If you find any issues, please use the [issue tracker on github](https://github.com/Wickedviruz/Wicked-MMO-server/issues)
 
 - PRs are welcome. Please:
@@ -48,4 +54,6 @@ If you find any issues, please use the [issue tracker on github](https://github.
 - Open a PR into main
 - Ensure CI passes on Windows + Ubuntu
 
-## 4 MIT License ([LICENSE](https://github.com/Wickedviruz/Wicked-MMO-server?tab=MIT-1-ov-file))
+## 4 MIT License
+
+This project is under the MIT [License](https://github.com/Wickedviruz/Wicked-MMO-server?tab=MIT-1-ov-file)
