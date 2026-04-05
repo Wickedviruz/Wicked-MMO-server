@@ -4,6 +4,8 @@ namespace GameCore.Config;
 
 public class ServerConfig
 {
+    //environment
+    public string Enviroment {get; set;} = "prod";
     // Network
     public string Ip {get; set;} ="127.0.0.1";
     public int Port {get; set;} =7171;
@@ -55,6 +57,10 @@ public class ServerConfig
 
             switch(key)
             {
+                case "environment":
+                    config.Enviroment = value;
+                    break;
+
                 case "ip":
                     config.Ip = value;
                     break;

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<globalevents>
+    <globalevent name="ServerSave"     type="serverSave"     script="server.lua" />
+    <globalevent name="ServerStart"    type="serverStart"    script="server.lua" />
+    <globalevent name="ServerShutdown" type="serverShutdown" script="server.lua" />
+    <globalevent name="HealTick"       type="timer" interval="60000" script="healtick.lua" />
+</globalevents>

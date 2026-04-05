@@ -7,6 +7,7 @@ using GameCore.Database;
 using GameCore.Database.Services;
 using GameCore.Network;
 using GameCore.Loaders;
+using GameCore.Scripting;
 
 namespace GameCore.Core;
 
@@ -27,6 +28,7 @@ public sealed class Game
     //managers
     private ServerConfig? _config;
     private NetworkManager? _networkManager;
+    private ScriptManager _scripts = null!;
 
     // database
     private DatabaseConnection? _dbConnection;
@@ -46,7 +48,8 @@ public sealed class Game
         State = GameState.Initializing;
         //Load config,
         //connect to DB,
-        //Load 
+        // init network manager
+        // init loaders ( monsters, npc)
         try
         {
             // load config file
@@ -55,18 +58,24 @@ public sealed class Game
             Logger.Log(LogLevel.Info, "CORE", "configuration loaded");
 
             // database connection
-            Logger.Log(LogLevel.Info, "CORE", "Connecting to database...");
-            try
+            if (_config.Enviroment == "prod"){
+                Logger.Log(LogLevel.Info, "CORE", "Connecting to database...");
+                try
+                {
+                    _dbConnection = new DatabaseConnection(_config.GetConnectionString());
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(LogLevel.Error, "CORE", "FATAL: Database connection failed!");
+                    Logger.Log(LogLevel.Error, "CORE", $"Error: {ex.Message}");
+                    Logger.Log(LogLevel.Error, "CORE", "Server cannot start without database.");
+                    return false;  // EXIT
+                }
+                }
+            else
             {
-                _dbConnection = new DatabaseConnection(_config.GetConnectionString());
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(LogLevel.Error, "CORE", "FATAL: Database connection failed!");
-                Logger.Log(LogLevel.Error, "CORE", $"Error: {ex.Message}");
-                Logger.Log(LogLevel.Error, "CORE", "Server cannot start without database.");
-                return false;  // ← EXIT
-            }
+                Logger.Log(LogLevel.Warn, "CORE", "Server running in development state, no database connected");
+            };
 
             // Initialize services
             Logger.Log(LogLevel.Info, "CORE", "Initializing database services...");
@@ -76,6 +85,11 @@ public sealed class Game
             // Initialize network
             Logger.Log(LogLevel.Info, "CORE", "Initializing network...");
             _networkManager = new NetworkManager(_config, _accountService, _characterService);
+
+            // Initialize Lua
+            _scripts = new ScriptManager("data");
+            _scripts.Load();
+            _scripts.EnableHotReload();
 
             // TODO: Initialize systems
             TryLoad("monsters", () => Loaders.Monsters.MonsterLoader.Load("data/monster"));
@@ -120,7 +134,7 @@ public sealed class Game
         }
 
         _networkManager!.Start();
-
+        _scripts.GlobalEvents.Invoke(_scripts.Vm, "serverStart");
         State = GameState.Running;
         Logger.Log(LogLevel.Info,"CORE",$"Running...");
 
@@ -163,6 +177,8 @@ public sealed class Game
     public void Stop()
     {
         _networkManager?.Stop();
+        _scripts.GlobalEvents.Invoke(_scripts.Vm, "serverShutdown");
+        _scripts.Dispose();
         State = GameState.Stopped;
         Logger.Log(LogLevel.Debug,"CORE",$"Stopped...");
     }
