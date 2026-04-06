@@ -20,7 +20,7 @@ public class CharacterService
         var sql = @"
             SELECT * FROM characters 
             WHERE account_id = @AccountId 
-              AND deleted_at IS NULL
+            AND deleted_at IS NULL
             ORDER BY created_at ASC";
         
         using var connection = await _db.GetConnectionAsync();
@@ -37,8 +37,8 @@ public class CharacterService
         var sql = @"
             SELECT * FROM characters 
             WHERE id = @CharacterId 
-              AND account_id = @AccountId 
-              AND deleted_at IS NULL";
+            AND account_id = @AccountId 
+            AND deleted_at IS NULL";
         
         using var connection = await _db.GetConnectionAsync();
         
@@ -105,8 +105,8 @@ public class CharacterService
             UPDATE characters 
             SET deleted_at = @DeletedAt 
             WHERE id = @CharacterId 
-              AND account_id = @AccountId 
-              AND deleted_at IS NULL";
+            AND account_id = @AccountId 
+            AND deleted_at IS NULL";
         
         using var connection = await _db.GetConnectionAsync();
         

@@ -1,6 +1,6 @@
 # Wicked MMO Server [![Build Status](https://github.com/Wickedviruz/Wicked-MMO-server/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Wickedviruz/Wicked-MMO-server/actions/workflows/ci.yml "build status") ![.NET](https://img.shields.io/badge/.NET-9.0-blue)
 
-Multiplayer Server built with C#/.NET 9.  
+Multiplayer Server built with C#/.NET 10.  
 WebSocket networking via Fleck, PostgreSQL persistence via Npgsql + Dapper, and secure password hashing with BCrypt.
 
 ## Status
@@ -10,7 +10,7 @@ This project is under active development.
 ## Tech Stack
 
 - **Language:** C#
-- **Runtime:** .NET 9 (`net9.0`)
+- **Runtime:** .NET 10 (`net10.0`)
 - **Networking:** Fleck (WebSocket)
 - **Database:** PostgreSQL (Npgsql) + Dapper
 - **Auth:** BCrypt.Net
@@ -19,7 +19,7 @@ This project is under active development.
 
 ### Requirements
 
-- .NET SDK 9
+- .NET SDK 10
 - PostgreSQL
 
 ### Run

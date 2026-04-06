@@ -1,4 +1,5 @@
-﻿using GameCore.Core;
+﻿using System.ComponentModel;
+using GameCore.Core;
 using GameCore.Database;
 using GameCore.Database.Services;
 
@@ -55,7 +56,7 @@ async Task CreateAccountCommandAsync()
     Console.WriteLine("=== Create Account ===\n");
 
     Console.Write("Database password: ");
-    var dbPassword = Console.ReadLine();
+    var dbPassword = ReadPassword();
     
     var connectionString = $"Host=localhost;Port=5432;Database=wicked_mmorpg;Username=postgres;Password={dbPassword}";
 
@@ -68,7 +69,7 @@ async Task CreateAccountCommandAsync()
         var username = Console.ReadLine() ?? "testuser";
 
         Console.Write("Password: ");
-        var password = Console.ReadLine() ?? "test123";
+        var password = ReadPassword(); 
 
         Console.Write("Email (optional): ");
         var email = Console.ReadLine();
@@ -79,7 +80,7 @@ async Task CreateAccountCommandAsync()
 
         if (account != null)
         {
-            Console.WriteLine($"\n✓ Account created!");
+            Console.WriteLine($"\n Account created!");
             Console.WriteLine($"  Username: {account.Username}");
             Console.WriteLine($"  ID: {account.Id}");
         }
@@ -90,8 +91,33 @@ async Task CreateAccountCommandAsync()
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"\n✗ Error: {ex.Message}");
+        Console.WriteLine($"\n Error: {ex.Message}");
     }
+}
+
+static string ReadPassword()
+{
+    var password = new System.Text.StringBuilder();
+    while (true)
+    {
+        var key = Console.ReadKey(intercept: true);
+        if (key.Key == ConsoleKey.Enter)
+        {
+            Console.WriteLine();
+            break;
+        }
+        if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+        {
+            password.Remove(password.Length - 1, 1);
+            Console.WriteLine("\b \b");
+        }
+        else if (key.Key != ConsoleKey.Backspace)
+        {
+            password.Append(key.KeyChar);
+            Console.Write("*");
+        }
+    }
+    return password.ToString();
 }
 
 void ShowHelp()
